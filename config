@@ -24,7 +24,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec i3-dmenu-desktop
+bindsym $mod+d exec dmenu_run -fn 'pango:DejaVu Sans Mono 24' -i
 
 # change focus
 bindsym $mod+j focus left
@@ -111,27 +111,17 @@ bindsym $mod+Shift+C reload
 bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exec --no-startup-id setxkbmap us && i3-msg exit
-bindsym $mod+Shift+P exec --no-startup-id systemctl poweroff
-bindsym $mod+Shift+H exec --no-startup-id systemctl reboot
+bindsym $mod+Shift+P exec --no-startup-id doas halt -p
+bindsym $mod+Shift+H exec --no-startup-id doas reboot
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+Shift+A exec xscreensaver-command -lock
 
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 4%+ unmute && killall -s SIGUSR1 i3status
-bindsym XF86AudioLowerVolume exec amixer -q set Master 4%- unmute && killall -s SIGUSR1 i3status
-bindsym XF86AudioMute exec amixer -q set Master toggle && killall -s SIGUSR1 i3status
 bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86Calculator exec xcalc
+bindsym XF86Calculator exec kcalc
 
-bindsym $mod+Shift+plus exec clipmenu
-bindsym $mod+t exec ~/bin/toggle-touchpad
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec sudo /home/bas/bin/light -A 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec sudo /home/bas/bin/light -U 20 # decrease screen brightness
-bindsym XF86Switch_VT_3 exec disper --clone
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -176,21 +166,13 @@ assign [class="(?i)chromium-browser"] 3: www
 assign [class="(?i)emacs"] 4: emacs
 assign [class="(?i)vlc"] 10: vlc
 
-exec redshift-gtk -l geoclue2
-exec --no-startup-id i3-msg 'workspace 9: mon; append_layout /home/bas/.i3/workspace-9.json'
+exec redshift -l 51.696544:5.223340
 exec --no-startup-id i3-msg 'workspace 5: urxvt; exec urxvt'
 exec xscreensaver
-exec clipmenud
-exec /usr/bin/dropbox start
-exec udiskie -a -n -t
 exec krusader
 exec autocutsel -fork -s PRIMARY
-exec --no-startup-id dbus-launch nm-applet
 exec --no-startup-id i3-msg 'workspace 9: mon; exec urxvt -title htop -e htop'
-exec slack
-exec skypeforlinux
 exec --no-startup-id i3-msg 'workspace 9: mon; exec urxvt -title nload -e nload'
 exec vlc
-exec --no-startup-id i3-msg 'workspace 3: www; exec chromium-browser'
-exec emacs "~/Dropbox/Personal/journals/divverence.org"
-exec --no-startup-id i3-msg 'workspace 9: mon; exec urxvt -title nethogs -e sudo nethogs'
+exec --no-startup-id i3-msg 'workspace 3: www; exec chrome'
+exec emacs
